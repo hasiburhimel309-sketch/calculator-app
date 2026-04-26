@@ -1,0 +1,219 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0d0d0f;
+  --calc-bg: #141416;
+  --display-bg: #0a0a0c;
+  --num: #1e1e22;
+  --num-hover: #2a2a30;
+  --func: #252528;
+  --func-hover: #333338;
+  --op: #ff6b00;
+  --op-hover: #ff8c33;
+  --eq: #ff6b00;
+  --text: #f0f0f0;
+  --muted: #888;
+  --accent: #ff6b00;
+  --border: #2a2a2e;
+}
+
+body {
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Rajdhani', sans-serif;
+  background-image: radial-gradient(ellipse at 20% 50%, #1a0a0020 0%, transparent 60%),
+                    radial-gradient(ellipse at 80% 20%, #0a1a2a20 0%, transparent 60%);
+}
+
+.wrapper {
+  perspective: 1000px;
+}
+
+.calculator {
+  background: var(--calc-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+  width: 320px;
+  box-shadow:
+    0 0 0 1px #ffffff08,
+    0 30px 80px #00000080,
+    0 0 60px #ff6b0010;
+  animation: floatIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.brand {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--muted);
+  text-align: right;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.brand span {
+  color: var(--accent);
+}
+
+/* ── Display ── */
+.display {
+  background: var(--display-bg);
+  border-radius: 14px;
+  padding: 18px 20px 14px;
+  margin-bottom: 20px;
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  border: 1px solid #ffffff06;
+  position: relative;
+  overflow: hidden;
+}
+
+.display::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ff6b0030, transparent);
+}
+
+.expression {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  min-height: 18px;
+  word-break: break-all;
+  text-align: right;
+  transition: all 0.2s;
+}
+
+.result {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 42px;
+  color: var(--text);
+  line-height: 1.1;
+  transition: all 0.15s ease;
+  word-break: break-all;
+}
+
+.result.pop {
+  transform: scale(1.04);
+  color: var(--accent);
+}
+
+/* ── Buttons ── */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.btn {
+  border: none;
+  border-radius: 14px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, background 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(255,255,255,0);
+  transition: background 0.15s;
+}
+
+.btn:active {
+  transform: scale(0.93);
+}
+
+.btn:active::after {
+  background: rgba(255,255,255,0.07);
+}
+
+/* Number buttons */
+.btn.num {
+  background: var(--num);
+  color: var(--text);
+  border: 1px solid #ffffff08;
+}
+
+.btn.num:hover {
+  background: var(--num-hover);
+  box-shadow: 0 4px 12px #00000040;
+}
+
+/* Function buttons (AC, +/-, %) */
+.btn.func {
+  background: var(--func);
+  color: #cccccc;
+  font-size: 18px;
+  border: 1px solid #ffffff08;
+}
+
+.btn.func:hover {
+  background: var(--func-hover);
+}
+
+/* Operator buttons */
+.btn.op {
+  background: #2a1800;
+  color: var(--op);
+  font-size: 26px;
+  border: 1px solid #ff6b0025;
+  box-shadow: 0 0 12px #ff6b0015;
+}
+
+.btn.op:hover {
+  background: #3a2200;
+  color: var(--op-hover);
+  box-shadow: 0 0 20px #ff6b0030;
+}
+
+/* Equals button */
+.btn.eq {
+  background: var(--eq);
+  color: #fff;
+  font-size: 28px;
+  border: none;
+  box-shadow: 0 4px 24px #ff6b0050;
+}
+
+.btn.eq:hover {
+  background: var(--op-hover);
+  box-shadow: 0 4px 32px #ff6b0070;
+}
+
+/* Zero button (wide) */
+.btn.zero {
+  grid-column: span 2;
+  justify-content: flex-start;
+  padding-left: 24px;
+}
